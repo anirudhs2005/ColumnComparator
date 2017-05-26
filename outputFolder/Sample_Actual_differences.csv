@@ -1,9 +1,9 @@
-Value,Production,Sandbox
-A,Yes,Yes
+Actual,Production,Sandbox.
+A,Yes,No
 X,No,No
 Y,No,No
-Z,No,Yes
+Z,No,No
 D,Yes,No
-M,No,Yes
-O,No,Yes
+M,No,No
+O,No,No
 B,Yes,No

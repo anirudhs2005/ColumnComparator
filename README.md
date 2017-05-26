@@ -16,7 +16,7 @@ I understand that Vlookup spoils it for you, when you want to compare two column
   2. Place your csv file in the inputFolder.
   3. If the name of your file is "Sample" AND it has two columns called "Actual" and "Production" AND you wish to find if the values present in "Actual" are present in "Production" then run
   4. node index --file "Sample" --h1 "Actual" --h2 "Production"
-                   where file = Name of the CSV file without .csv extension inside the inputFolder
+   5. Here  file = Name of the CSV file without .csv extension inside the inputFolder
                               h1 = Name of the column whose values are to be validated.
                               h2 = Name of the column against which h1 values are to be validated.
 

@@ -1,9 +1,10 @@
 const fs = require('fs'),
-          fastcsv = require('fast-csv'), 
+          fastcsv = require('fast-csv'),
            argv = require('yargs').argv;
-
+const YES = 'Yes',
+      NO = 'No';
 /**
- *Usage : 
+ *Usage :
  *1. Change directory in the command prompt to the folder where index.js is present
  *2.  Place your csv file in the inputFolder
  *3. node index --file "Sample" --h1 "Actual" --h2 "Production",
@@ -11,10 +12,10 @@ const fs = require('fs'),
  *   h1 = Name of the column whose values are to be validated.
  *   h2 = Name of the column against which h1 values are to be validated.
  *4.  Output: ##You know you have the outout when you read "Done creating....."
- *       A CSV file(created inside the outputFolder)  whose name is  csvFileName + Header Label passed in  +  differencessuffix . 
- *       
- *      
- * 
+ *       A CSV file(created inside the outputFolder)  whose name is  csvFileName + Header Label passed in  +  differencessuffix .
+ *
+ *
+ *
  */
 
 /**
@@ -22,14 +23,15 @@ const fs = require('fs'),
  */
 let csvFileName = argv.file,
      header1arg  = argv.h1,
-     header2arg  = argv.h2,
+     header2arg  = argv.rest,
      inputFolder = 'inputFolder',
      outputFolder  = 'outputFolder',
      csvFile2ReadPath = `./${inputFolder}/${csvFileName}.csv`,
      differencesSuffix = 'differences',
-     header1=header1arg, header2 = header2arg, differencesFile2Create = `./${outputFolder}/${csvFileName}_${header1}_${differencesSuffix}.csv`;
+     header1=header1arg, rest = [].concat(header2arg), differencesFile2Create = `./${outputFolder}/${csvFileName}_${header1}_${differencesSuffix}.csv`;
 
-let csvdata = [],header1values = [], header2values=[], differences = [];
+let csvdata = [],header1values = [], header2values=[], restOfTheHeaderValues = [] ,differences = [];
+
 
 fastcsv.fromPath(csvFile2ReadPath, {headers:true})
           .on("data", data=> {
@@ -38,25 +40,47 @@ fastcsv.fromPath(csvFile2ReadPath, {headers:true})
           .on("end", ()=>{
           	  console.log(`Finished Parsing ${csvFile2ReadPath}`);
           	  csvdata.forEach( (val,index) =>{
-          	  	
+
           	  	header1values.push(val[header1]);
-          	  	header2values.push(val[header2]);
+                rest.forEach((h,i)=>{
+                         if(restOfTheHeaderValues.hasOwnProperty(h)){
+                             restOfTheHeaderValues[h].push(val[h]);
+                         }else{
+                            restOfTheHeaderValues[h] = [];
+                            restOfTheHeaderValues[h].push(val[h]);
+                         }
+                });
+
           	  });
-            
-             let header1values_sansempty = header1values.filter(val => val!=='' );
-             let header2values_sansempty = header2values.filter(val => val!=='' );
-             let header2values_set  = new Set(header2values_sansempty);
-      
+
+
+             let empty_filter = function(val){
+                return val!=='';
+             }
+             let header1values_sansempty = header1values.filter(empty_filter);
+
              console.log('Finding Differences....');
              header1values_sansempty.forEach((val,index)=>{
-             	if(header2values_set.has(val)){
-             	
-             		differences.push({Value : val, status:` Present in ${header2}`, rowNum: index+1});
-             	}else{
-             		
-             		differences.push({Value : val, status:`Not present in ${header2}`, rowNum: index+1});
-             	}
+               //Iterate over the rest of the headers
+               let headers_status = {};
+               rest.forEach((h)=>{
+                  let headerToBeComparedWith = h;
+                  let headerToBeComparedWithValues = restOfTheHeaderValues[headerToBeComparedWith];
+                  let headerToBeComparedWithValues_sansempty = headerToBeComparedWithValues.filter(empty_filter);
+                  let headerToBeComparedWithValues_Set = new Set(headerToBeComparedWithValues_sansempty);
+                  if(headerToBeComparedWithValues_Set.has(val)){
+                    headers_status[headerToBeComparedWith] = YES;
+
+                  }else{
+                      headers_status[headerToBeComparedWith] = NO;
+                  }
+
+               });
+               let difference_row = Object.assign({},{Value:val},headers_status);
+               differences.push(difference_row);
+
              });
+
 
              console.log(`Creating file ${differencesFile2Create}`);
              fastcsv.writeToPath(differencesFile2Create,differences, {headers:true}).on("finish", function(){
@@ -65,5 +89,3 @@ fastcsv.fromPath(csvFile2ReadPath, {headers:true})
 
 
           });
-
-

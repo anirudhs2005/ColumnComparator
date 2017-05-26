@@ -13,16 +13,17 @@ Ex: Compare Column1 with Column2 , Column3 and Column4 and tell us if Values in 
 
 # How to run the program?
   >Assume the following to understand how to execute a command:
-  >File Name : Sample.csv
-  >Headers : Actual, Production, Sandbox
+     >File Name : Sample.csv
+     >Headers in the CSV file : Actual, Production, Sandbox
+
   1. Change directory in the command prompt to the folder where index.js is present
   2. Place your csv file in the inputFolder.
   3. Validate against a Single Column:
-    1. Suppose you wish to compare the Column "Actual" with the column "Production". Run the following command:
-        - node index --file "Sample" --h1 "Actual" --rest "Production"
-4. Validate a column against Multiple Columns:
-    1. Suppose you wish to compare the Column "Actual" with the column "Production" and the column "Sandbox". Run the following command:
-       -  node index --file "Sample" --h1 "Actual" --rest "Production" --rest "Sandbox".
+      1. Suppose you wish to compare the Column "Actual" with the column "Production". Run the following command:
+          - node index --file "Sample" --h1 "Actual" --rest "Production"
+  4. Validate a column against Multiple Columns:
+      1. Suppose you wish to compare the Column "Actual" with the column "Production" and the column "Sandbox". Run the following command:
+          -  node index --file "Sample" --h1 "Actual" --rest "Production" --rest "Sandbox".
 
 
 

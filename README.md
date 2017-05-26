@@ -16,9 +16,7 @@ Ex: Compare Column1 with Column2 , Column3 and Column4 and tell us if Values in 
   2. Place your csv file in the inputFolder.
   3. If the name of your file is "Sample" AND it has two columns called "Actual" and "Production" AND you wish to find if the values present in "Actual" are present in "Production" then run
   4. node index --file "Sample" --h1 "Actual" --rest "Production"
-  5. Here  file = Name of the CSV file without .csv extension inside the inputFolder
-                              h1 = Name of the column whose values are to be validated.
-                              h2 = Name of the column against which h1 values are to be validated.
+    >If the Actual Column in Sample file needs to compared with Production
   6. Multiple Columns:
   7. node index --file "Sample" --h1 "Actual" --rest "Production" --rest "Sandbox".
      >If the Actual column in the Sample file needs to be compared with "Production" and "Sandbox" column then use this format

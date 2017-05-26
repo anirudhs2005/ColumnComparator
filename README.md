@@ -12,19 +12,21 @@ Ex: Compare Column1 with Column2 , Column3 and Column4 and tell us if Values in 
 
 
 # How to run the program?
+  >Assume the following to understand how to execute a command:
+  >File Name : Sample.csv
+  >Headers : Actual, Production, Sandbox
   1. Change directory in the command prompt to the folder where index.js is present
   2. Place your csv file in the inputFolder.
-  3. If the name of your file is "Sample" AND it has two columns called "Actual" and "Production" AND you wish to find if the values present in "Actual" are present in "Production" then run
-  4. node index --file "Sample" --h1 "Actual" --rest "Production"
-    >If the Actual Column in Sample file needs to compared with Production
-  6. Multiple Columns:
-  7. node index --file "Sample" --h1 "Actual" --rest "Production" --rest "Sandbox".
-     >If the Actual column in the Sample file needs to be compared with "Production" and "Sandbox" column then use this format
+  3. Validate against a Single Column:
+    1. Suppose you wish to compare the Column "Actual" with the column "Production". Run the following command:
+        - node index --file "Sample" --h1 "Actual" --rest "Production"
+4. Validate a column against Multiple Columns:
+    1. Suppose you wish to compare the Column "Actual" with the column "Production" and the column "Sandbox". Run the following command:
+       -  node index --file "Sample" --h1 "Actual" --rest "Production" --rest "Sandbox".
 
 
 
  # Output
-    **You know you have the output when you read "Done creating....."**
 
     1. A CSV file(created inside the outputFolder)  whose name is  csvFileName + h1 +  differencessuffix variable name in the  index.js file
     2. Check the Sample_Actual_differences.csv for more information on the output

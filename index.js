@@ -76,7 +76,7 @@ fastcsv.fromPath(csvFile2ReadPath, {headers:true})
                   }
 
                });
-               let difference_row = Object.assign({},{Value:val},headers_status);
+               let difference_row = Object.assign({},{[header1]:val},headers_status);
                differences.push(difference_row);
 
              });

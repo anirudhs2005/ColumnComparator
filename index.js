@@ -5,16 +5,16 @@ const YES = 'Yes',
       NO = 'No';
 /**
  *Usage :
- *1. Change directory in the command prompt to the folder where index.js is present
- *2.  Place your csv file in the inputFolder
- *3. node index --file "Sample" --h1 "Actual" --h2 "Production",
- *   where file = Name of the CSV file without .csv extension inside the inputFolder
- *   h1 = Name of the column whose values are to be validated.
- *   h2 = Name of the column against which h1 values are to be validated.
- *4.  Output: ##You know you have the outout when you read "Done creating....."
- *       A CSV file(created inside the outputFolder)  whose name is  csvFileName + Header Label passed in  +  differencessuffix .
  *
  *
+ *Assume the following to understand how to execute a command: >File Name : Sample.csv >Headers in the CSV file : Actual, Production, Sandbox
+1.Change directory in the command prompt to the folder where index.js is present
+2. Validate against a Single Column:
+   Suppose you wish to compare the Column "Actual" with the column "Production". Run the following command: 
+     node index --file "Sample" --h1 "Actual" --rest "Production"
+3.Validate a column against Multiple Columns:
+4. Suppose you wish to compare the Column "Actual" with the column "Production" and the column "Sandbox". Run the following command:
+       node index --file "Sample" --h1 "Actual" --rest "Production" --rest "Sandbox".
  *
  */
 
